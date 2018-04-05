@@ -4,6 +4,7 @@ package ui.anwesome.com.triangletosquareview
  * Created by anweshmishra on 06/04/18.
  */
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.MotionEvent
@@ -114,7 +115,7 @@ class TriToSquareWaveView (ctx : Context) : View(ctx) {
         fun render(canvas : Canvas, paint : Paint) {
             canvas.drawColor(Color.parseColor("#212121"))
             paint.color = Color.parseColor("#00C853")
-            paint.style = Paint.Style.STROKE 
+            paint.style = Paint.Style.STROKE
             paint.strokeWidth = 6f
             paint.strokeCap = Paint.Cap.ROUND
             wave.draw(canvas, paint)
@@ -128,6 +129,14 @@ class TriToSquareWaveView (ctx : Context) : View(ctx) {
             wave.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : TriToSquareWaveView {
+            val view : TriToSquareWaveView = TriToSquareWaveView(activity)
+            activity.setContentView(view)
+            return view 
         }
     }
 }
