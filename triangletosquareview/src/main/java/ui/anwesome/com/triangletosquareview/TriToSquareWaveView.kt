@@ -93,6 +93,7 @@ class TriToSquareWaveView (ctx : Context) : View(ctx) {
                 path.lineTo(x_gap/2 - w_x, y_h)
                 path.lineTo(x_gap/2 + w_x, y_h)
                 path.lineTo(x_gap, 0f)
+                canvas.drawPath(path, paint)
                 canvas.restore()
             }
             canvas.restore()
@@ -113,6 +114,7 @@ class TriToSquareWaveView (ctx : Context) : View(ctx) {
         fun render(canvas : Canvas, paint : Paint) {
             canvas.drawColor(Color.parseColor("#212121"))
             paint.color = Color.parseColor("#00C853")
+            paint.style = Paint.Style.STROKE 
             paint.strokeWidth = 6f
             paint.strokeCap = Paint.Cap.ROUND
             wave.draw(canvas, paint)
