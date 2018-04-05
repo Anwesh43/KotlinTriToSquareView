@@ -72,4 +72,38 @@ class TriToSquareWaveView (ctx : Context) : View(ctx) {
             }
         }
     }
+
+    data class TriToSquareWave ( var i : Int, val state : State = State()) {
+
+        fun draw(canvas : Canvas, paint : Paint) {
+            val w = canvas.width.toFloat()
+            val h = canvas.height.toFloat()
+            canvas.save()
+            canvas.translate(0f, h/2)
+            val path : Path = Path()
+            val n : Int = 10
+            val x_gap : Float = (w)/10
+            val w_x = (x_gap/2) * state.scale
+            for (i in 0..n-1) {
+                val y_h = (h/4) * (1 - 2 * (i%2))
+                canvas.save()
+                canvas.translate(x_gap * i, 0f)
+                val path : Path = Path()
+                path.moveTo(0f, 0f)
+                path.lineTo(x_gap/2 - w_x, y_h)
+                path.lineTo(x_gap/2 + w_x, y_h)
+                path.lineTo(x_gap, 0f)
+                canvas.restore()
+            }
+            canvas.restore()
+        }
+
+        fun update(stopcb : (Float) -> Unit) {
+            state.update(stopcb)
+        }
+
+        fun startUpdating(startcb : () -> Unit) {
+            state.startUpdating(startcb)
+        }
+    }
 }
