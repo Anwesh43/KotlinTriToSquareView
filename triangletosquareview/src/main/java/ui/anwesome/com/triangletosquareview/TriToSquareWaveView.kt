@@ -106,4 +106,26 @@ class TriToSquareWaveView (ctx : Context) : View(ctx) {
             state.startUpdating(startcb)
         }
     }
+
+    data class Renderer(var view : TriToSquareWaveView) {
+        val animator : Animator = Animator(view)
+        val wave : TriToSquareWave = TriToSquareWave(0)
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#212121"))
+            paint.color = Color.parseColor("#00C853")
+            paint.strokeWidth = 6f
+            paint.strokeCap = Paint.Cap.ROUND
+            wave.draw(canvas, paint)
+            animator.animate {
+                wave.update {
+                    animator.stop()
+                }
+            }
+        }
+        fun handleTap() {
+            wave.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
